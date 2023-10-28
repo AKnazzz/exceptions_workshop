@@ -35,6 +35,8 @@ public class TimeMachine {
             throw new TimeTravelException("Путешественник во времени ещё не родился в этот год!");
         } else if (year > timeTraveler.getDeathYear()){
             throw new TimeTravelException("Путешественник во времени уже умер!");
+        } else {
+            System.out.println("Путешествие во времени успешно. Добро пожаловать в " + year + " год.");
         }
     }
 
