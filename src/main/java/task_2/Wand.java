@@ -1,8 +1,16 @@
 package task_2;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import task_2.exceptions.NotEnoughMaterialException;
 import task_2.exceptions.NotEnoughWoodException;
 
+@Slf4j
+@Setter
+@Getter
+@NoArgsConstructor
 public class Wand {
     private String woodType; // тип дерева палочки
     private int length; //длина палочки в дюймах
@@ -13,16 +21,16 @@ public class Wand {
             NotEnoughMaterialException {
 
         if (woodType == null || woodType.isBlank()) {
-            throw new NotEnoughWoodException("Значение woodType должно быть заполнено.");
+            throw new NotEnoughWoodException("The woodType value must be filled in.");
         }
         if (length <= 0) {
-            throw new IllegalArgumentException("Значение length должно быть больше 0.");
+            throw new IllegalArgumentException("The length value must be greater than 0.");
         }
         if (coreMaterial == null || coreMaterial.isBlank()) {
-            throw new NotEnoughMaterialException("Значение coreMaterial должно быть заполнено.");
+            throw new NotEnoughMaterialException("The coreMaterial value must be filled in.");
         }
         if (powerLevel <= 0) {
-            throw new IllegalArgumentException("Значение powerLevel должно быть больше 0.");
+            throw new IllegalArgumentException("The powerLevel value must be greater than 0.");
         }
 
 
@@ -32,35 +40,9 @@ public class Wand {
         this.powerLevel = powerLevel;
     }
 
-    public String getWoodType() {
-        return woodType;
+    @Override
+    public String toString() {
+        return "Wood: " + woodType + ", " + length + " in. , core: " + coreMaterial + ", power: " + powerLevel;
     }
 
-    public void setWoodType(String woodType) {
-        this.woodType = woodType;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    public String getCoreMaterial() {
-        return coreMaterial;
-    }
-
-    public void setCoreMaterial(String coreMaterial) {
-        this.coreMaterial = coreMaterial;
-    }
-
-    public int getPowerLevel() {
-        return powerLevel;
-    }
-
-    public void setPowerLevel(int powerLevel) {
-        this.powerLevel = powerLevel;
-    }
 }
