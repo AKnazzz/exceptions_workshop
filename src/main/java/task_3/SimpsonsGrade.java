@@ -1,5 +1,14 @@
 package task_3;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.Objects;
+
+@Getter
+@Setter
+@Slf4j
 public class SimpsonsGrade {
     private SimpsonsCourse course; // экземпляр класса SimpsonsCourse, к которому относится оценка
     private SimpsonsCharacter character; // экземпляр класса SimpsonsCharacter, которому присвоена оценка.
@@ -11,27 +20,21 @@ public class SimpsonsGrade {
         this.gradeValue = gradeValue;
     }
 
-    public SimpsonsCourse getCourse() {
-        return course;
+    @Override
+    public int hashCode() {
+        return Objects.hash(character, course, gradeValue);
     }
 
-    public void setCourse(SimpsonsCourse course) {
-        this.course = course;
-    }
-
-    public SimpsonsCharacter getCharacter() {
-        return character;
-    }
-
-    public void setCharacter(SimpsonsCharacter character) {
-        this.character = character;
-    }
-
-    public int getGradeValue() {
-        return gradeValue;
-    }
-
-    public void setGradeValue(int gradeValue) {
-        this.gradeValue = gradeValue;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SimpsonsGrade other = (SimpsonsGrade) obj;
+        return Objects.equals(character, other.character) && Objects.equals(course, other.course)
+                && gradeValue == other.gradeValue;
     }
 }

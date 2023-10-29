@@ -1,69 +1,69 @@
 package task_3;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
+@Slf4j
+@Setter
+@Getter
+@NoArgsConstructor
 public class SimpsonsCharacter {
+    private static AtomicInteger counter = new AtomicInteger(0);
     private String name; // имя персонажа
     private int age; // возраст персонажа
     private int characterId; // уникальный идентификатор персонажа
-    private List<SimpsonsCourse> enrolledCourses = new ArrayList<>(); // список предметов, на которые персонаж записан
-    private Map<SimpsonsCourse, Integer> grades = new HashMap<>(); //  список оценок персонажа
+    private Set<SimpsonsCourse> enrolledCourses; // список предметов, на которые персонаж записан
+    private List<SimpsonsGrade> grades; //  список оценок персонажа
 
-    public SimpsonsCharacter(String name, int age, int characterId, List<SimpsonsCourse> enrolledCourses,
-            Map<SimpsonsCourse, Integer> grades) {
+    public SimpsonsCharacter(String name, int age) {
+
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Please provide correct name");
+        }
+
+        if (age < 1) {
+            throw new IllegalArgumentException("Age must be above 0");
+        }
+
         this.name = name;
         this.age = age;
-        this.characterId = characterId;
-        this.enrolledCourses = enrolledCourses;
-        this.grades = grades;
+        this.characterId = nextId();
+        this.enrolledCourses = new HashSet<>();
+        this.grades = new ArrayList<>();
     }
 
-    public SimpsonsCharacter(String name, int age, int characterId) {
-        this.name = name;
-        this.age = age;
-        this.characterId = characterId;
+    private static int nextId() {
+        return counter.incrementAndGet();
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public int hashCode() {
+        return Objects.hash(age, characterId, enrolledCourses, grades, name);
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SimpsonsCharacter other = (SimpsonsCharacter) obj;
+        return age == other.age && characterId == other.characterId
+                && Objects.equals(enrolledCourses, other.enrolledCourses) && Objects.equals(grades, other.grades)
+                && Objects.equals(name, other.name);
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public int getCharacterId() {
-        return characterId;
-    }
-
-    public void setCharacterId(int characterId) {
-        this.characterId = characterId;
-    }
-
-    public List<SimpsonsCourse> getEnrolledCourses() {
-        return enrolledCourses;
-    }
-
-    public void setEnrolledCourses(List<SimpsonsCourse> enrolledCourses) {
-        this.enrolledCourses = enrolledCourses;
-    }
-
-    public Map<SimpsonsCourse, Integer> getGrades() {
-        return grades;
-    }
-
-    public void setGrades(Map<SimpsonsCourse, Integer> grades) {
-        this.grades = grades;
-    }
 }
