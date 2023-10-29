@@ -3,6 +3,7 @@ package task_1;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import task_1.exceptions.TimeTravelException;
 
 @Slf4j
 @Getter

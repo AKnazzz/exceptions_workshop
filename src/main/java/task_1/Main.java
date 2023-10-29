@@ -1,6 +1,7 @@
 package task_1;
 
 import lombok.extern.slf4j.Slf4j;
+import task_1.exceptions.TimeTravelException;
 
 @Slf4j
 public class Main {
