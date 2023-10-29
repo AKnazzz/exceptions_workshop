@@ -1,22 +1,41 @@
 package task_5;
 
+import lombok.extern.slf4j.Slf4j;
 import task_5.exceptions.BattleException;
 import task_5.exceptions.NoItemsException;
 
 import java.util.Random;
 
+@Slf4j
 public class BattleSimulator {
-    public void simulateBattle(Hero hero, int numTurns) throws NoItemsException {
+    public void simulateBattle(Hero hero, int numTurns) throws InterruptedException {
+
+        if (hero == null) {
+            throw new IllegalArgumentException("Null hero was sent");
+        }
+
+        if (numTurns < 1) {
+            throw new IllegalArgumentException("Allowed 1 turn atleast");
+        }
+
+        log.info("Beginning a battle simulation with {}, number of turns: {}", hero.getHeroName(), numTurns);
+        Random random = new Random();
+
+        MagicItem[] inventory = hero.getInventory().toArray(new MagicItem[hero.getInventory().size()]);
+
         for (int i = 0; i < numTurns; i++) {
+
+            log.info("Turn {} start", i + 1);
+
+            int nextInt = random.nextInt(inventory.length);
+
             try {
-                if (hero.inventory.isEmpty()) {
-                    throw new NoItemsException("У героя нет предметов для использования.");
-                }
-                MagicItem randomItem = hero.inventory.get(new Random().nextInt(hero.inventory.size()));
-                hero.useItem(randomItem);
-            } catch (BattleException exp) {
-                System.out.println(exp.getMessage());
+                hero.useItem(inventory[nextInt]);
+            } catch (RuntimeException e) {
+                log.error("Exception in useItem(): {}", e.getMessage());
             }
+
+            Thread.sleep(2000);
         }
     }
 }
