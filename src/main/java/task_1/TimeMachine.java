@@ -1,5 +1,12 @@
 package task_1;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Getter
+@Setter
 public class TimeMachine {
     private int currentYear; // текущий год временной машины.
     private boolean isWorking; // флаг, указывающий, работает ли машина времени.
@@ -9,35 +16,21 @@ public class TimeMachine {
         this.isWorking = isWorking;
     }
 
-    public int getCurrentYear() {
-        return currentYear;
-    }
-
-    public void setCurrentYear(int currentYear) {
-        this.currentYear = currentYear;
-    }
-
-    public boolean isWorking() {
-        return isWorking;
-    }
-
-    public void setWorking(boolean working) {
-        isWorking = working;
-    }
-
 
     public void travelInTime(TimeTraveler timeTraveler, int year) {
         if (!isWorking) {
-            throw new TimeTravelException("Машина времени не работает!");
+            throw new TimeTravelException("Time machine is off");
         }
 
         if (year < timeTraveler.getBirthYear()) {
-            throw new TimeTravelException("Путешественник во времени ещё не родился в этот год!");
-        } else if (year > timeTraveler.getDeathYear()){
-            throw new TimeTravelException("Путешественник во времени уже умер!");
-        } else {
-            System.out.println("Путешествие во времени успешно. Добро пожаловать в " + year + " год.");
+            throw new TimeTravelException("Too young");
         }
+
+        if (year > timeTraveler.getDeathYear()) {
+            throw new TimeTravelException("No live after death");
+        }
+
+        System.out.println("Back To Future! Welcome in " + year + " !!! ");
     }
 
 
