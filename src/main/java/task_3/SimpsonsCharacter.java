@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 public class SimpsonsCharacter {
-    private String name;
-    private int age;
-    private int characterId;
-    private List<SimpsonsCourse> enrolledCourses = new ArrayList<>();
-    private Map<SimpsonsCourse, Integer> grades = new HashMap<>();
+    private String name; // имя персонажа
+    private int age; // возраст персонажа
+    private int characterId; // уникальный идентификатор персонажа
+    private List<SimpsonsCourse> enrolledCourses = new ArrayList<>(); // список предметов, на которые персонаж записан
+    private Map<SimpsonsCourse, Integer> grades = new HashMap<>(); //  список оценок персонажа
 
     public SimpsonsCharacter(String name, int age, int characterId, List<SimpsonsCourse> enrolledCourses,
             Map<SimpsonsCourse, Integer> grades) {
